@@ -9,7 +9,6 @@ import requests
 
 class MapData:
 
-    # Attributes
     BBOX_Values = input('Enter BBOX values separated by space:')
     BBOX = BBOX_Values.split()
 
