@@ -6,7 +6,7 @@ import requests
 
 # Example BBOX values: 56.4897 -7.04219 72.2495 37.4864
 
-
+# 100%own code
 class MapData:
 
     # Attributes
@@ -18,7 +18,7 @@ class MapData:
 
 
 BBOX = ', '.join(MapData.BBOX)
-
+# from here on to the end the code is inspired by the git-repositories in read.me
 request_url = 'https://wms.geonorge.no/skwms1/wms.hoyde-dom?' \
            'SERVICE= WMS&' \
            'VERSION=1.3.0&' \
