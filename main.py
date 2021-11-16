@@ -6,7 +6,7 @@ import requests
 
 # Example BBOX values: 56.4897 -7.04219 72.2495 37.4864
 
-# 100%own code
+# 100% Own code
 class MapData:
 
     # Attributes
