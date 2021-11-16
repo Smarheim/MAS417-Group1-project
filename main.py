@@ -4,19 +4,33 @@ from stl import mesh
 from io import BytesIO
 import requests
 
+# Example BBOX values: 56.4897 -7.04219 72.2495 37.4864
+
+
+class MapData:
+
+    # Attributes
+    BBOX_Values = input('Enter BBOX values separated by space:')
+    BBOX = BBOX_Values.split()
+
+    for i in range(len(BBOX)):
+        BBOX[i] = str(BBOX[i])
+
+
+BBOX = ', '.join(MapData.BBOX)
+
 request_url = 'https://wms.geonorge.no/skwms1/wms.hoyde-dom?' \
-           'SERVICE=WMS&' \
+           'SERVICE= WMS&' \
            'VERSION=1.3.0&' \
            'REQUEST=GetMap&' \
            'FORMAT=image/png&' \
            'TRANSPARENT=false&' \
            'LAYERS=DOM:None&' \
-           'CRS=EPSG:102100&' \
+           'CRS=EPSG:4258&' \
            'STYLES=&' \
-           'WIDTH=900&' \
-           'HEIGHT=1000&' \
-           'BBOX= -41608.792735, 7959036.255282, 3441415.562179, 11525516.916074'
-
+           'WIDTH=825&' \
+           'HEIGHT=617&' \
+           'BBOX=' f'{BBOX}' \
 
 response = requests.get(request_url, verify=True)  # SSL Cert verification explicitly enabled. (This is also default.)
 print(f"HTTP response status code = {response.status_code}")
@@ -25,22 +39,22 @@ grey_img = Image.open(BytesIO(response.content)).convert('L')
 transposed  = grey_img.transpose(Image.ROTATE_180)
 grey_img.show()
 
-max_size=(300, 200)
+max_size=(900, 700)
 max_height=10
 min_height=0
 
-#height=0 for minPix
-#height=maxHeight for maxPIx
+# height=0 for minPix
+# height=maxHeight for maxPIx
 
 grey_img.thumbnail(max_size)
 imageNp = np.array(grey_img)
-maxPix=imageNp.max()
-minPix=imageNp.min()
+maxPix = imageNp.max()
+minPix = imageNp.min()
 
 print(f"max:{imageNp.max()}")
 
 print(imageNp)
-(ncols,nrows)=grey_img.size
+(ncols,nrows) = grey_img.size
 
 vertices=np.zeros((nrows,ncols,3))
 
@@ -48,7 +62,7 @@ for x in range(0, ncols):
   for y in range(0, nrows):
     pixelIntensity = imageNp[y][x]
     z = (pixelIntensity * max_height) / maxPix
-    #print(imageNp[y][x])
+    # print(imageNp[y][x])
     vertices[y][x]=(x, y, z)
 
 faces=[]
