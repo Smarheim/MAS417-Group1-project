@@ -18,7 +18,7 @@ class MapData:
 
 
 BBOX = ', '.join(MapData.BBOX)
-# from here on to the end the code is inspired by the git-repositories in read.me
+# from here on to the end the code is inspired by the git-repositories in README.md
 request_url = 'https://wms.geonorge.no/skwms1/wms.hoyde-dom?' \
            'SERVICE= WMS&' \
            'VERSION=1.3.0&' \
